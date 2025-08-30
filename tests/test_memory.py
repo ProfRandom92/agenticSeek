@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 import os
 import sys
 import json
@@ -79,7 +80,8 @@ class TestMemory(unittest.TestCase):
         self.memory.reset(new_memory)
         self.assertEqual(self.memory.memory, new_memory)
 
-    def test_save_and_load_memory(self):
+    @patch('sources.memory.Memory.compress')
+    def test_save_and_load_memory(self, mock_compress):
         self.memory.push("user", "Hello")
         self.memory.push("assistant", "Hi")
         self.memory.save_memory()

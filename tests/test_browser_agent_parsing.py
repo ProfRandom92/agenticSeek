@@ -1,15 +1,17 @@
 import unittest
+from unittest.mock import patch
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))  # Add project root to Python path
 from sources.agents.browser_agent import BrowserAgent
 
 class TestBrowserAgentParsing(unittest.TestCase):
-    def setUp(self):
+    @patch('sources.agents.browser_agent.searxSearch')
+    def setUp(self, mock_searx_search):
         # Initialize a basic BrowserAgent instance for testing
         self.agent = BrowserAgent(
             name="TestAgent",
-            prompt_path="../prompts/base/browser_agent.txt",
+            prompt_path="prompts/base/browser_agent.txt",
             provider=None
         )
 
